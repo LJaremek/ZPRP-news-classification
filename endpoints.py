@@ -1,4 +1,5 @@
 import random
+import uvicorn
 
 import requests
 from fastapi import FastAPI, HTTPException
@@ -42,3 +43,12 @@ async def rate_url(url: str):
         raise HTTPException(status_code=400, detail="could not find article on page")
 
     return ArticleRating(article=article, rating=mock_rate_article(article))
+
+
+if __name__ == "__main__":
+    uvicorn.run(
+        app, host="0.0.0.0",
+        port=8090,
+        ssl_keyfile=None,
+        ssl_certfile=None
+        )
