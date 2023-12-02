@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <title>Fake news detector</title>
+    <!--suppress HtmlUnknownTarget -->
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+</head>
+<body>
+
+<div id="container">
+    <h1>Fake news detector</h1>
+
+    <form action="/rate_article" method="post">
+        <ul>
+            <li><label for="article_text">Paste article text:</label></li>
+            <li><textarea id="article_text" name="article_text"></textarea></li>
+            <li>
+                <button type="submit">Rate</button>
+            </li>
+        </ul>
+    </form>
+
+    <form action="/rate_url" method="post">
+        <ul>
+            <li><label for="article_url">or URL to the article:</label></li>
+            <li><input type="text" id="article_url" name="article_url"></li>
+            <li>
+                <button type="submit">Rate</button>
+            </li>
+        </ul>
+    </form>
+
+</div>
+<div>
+</div>
+</body>
+</html>

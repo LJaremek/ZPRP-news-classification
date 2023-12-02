@@ -11,6 +11,8 @@ exceptiongroup==1.2.0
 fastapi==0.104.1
 h11==0.12.0
 idna==3.4
+Jinja2==3.1.2
+MarkupSafe==2.1.1
 mypy-extensions==1.0.0
 packaging==23.1
 pathspec==0.10.3
@@ -20,6 +22,7 @@ pycparser==2.21
 pydantic==1.10.12
 pyOpenSSL==23.2.0
 PySocks==1.7.1
+python-multipart==0.0.6
 requests==2.31.0
 setuptools==68.0.0
 sniffio==1.3.0

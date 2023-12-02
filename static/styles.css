@@ -1,0 +1,49 @@
+html * {
+    font-family: "Open Sans", serif !important;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    margin-top: 3em;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+form li + li {
+    margin-top: 1em;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #000;
+}
+
+input,
+textarea {
+    font: 1em sans-serif;
+    width: 500px;
+    box-sizing: border-box;
+    margin-top: 0.5em;
+    border: 1px solid #999;
+}
+
+
+textarea {
+    vertical-align: top;
+    height: 5em;
+}
+
+p.i {
+    font-style: italic;
+    padding: 1em 10em;
+}
