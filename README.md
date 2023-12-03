@@ -41,3 +41,19 @@ python -m unittest
 ```shell
 python endpoints.py
 ```
+
+
+### Dataset
+The **ISOT Fake News dataset** is a compilation of several thousands fake news and truthful articles, obtained from different legitimate news sites and sites flagged as unreliable by Politifact.com.
+
+Description:
+https://onlineacademiccommunity.uvic.ca/isot/wp-content/uploads/sites/7295/2023/02/ISOT_Fake_News_Dataset_ReadMe.pdf
+
+Download:
+https://onlineacademiccommunity.uvic.ca/isot/wp-content/uploads/sites/7295/2023/03/News-_dataset.zip
+
+### Project structure
+Project folder:
+* data:
+    * Fake.csv
+    * True.csv
