@@ -2,3 +2,4 @@
 __pycache__/
 data/Fake.csv
 data/True.csv
+data/Data.csv
