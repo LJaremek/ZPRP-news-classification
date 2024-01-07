@@ -151,7 +151,7 @@ class PreProcessing:
 if __name__ == "__main__":
     pre_processing = PreProcessing()
     pre_processing.process_data(
-        "data/True.csv",
-        "data/Fake.csv",
-        "data/Data2.csv"
+        "data/raw/True.csv",
+        "data/raw/Fake.csv",
+        "data/processed/Data.csv"
         )
