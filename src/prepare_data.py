@@ -2,10 +2,13 @@ from datetime import datetime
 import re
 
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
 import pandas as pd
 import nltk
 
 nltk.download('vader_lexicon')
+nltk.download("punkt")
 
 
 class PreProcessing:
@@ -23,6 +26,7 @@ class PreProcessing:
         '{', '|', '}', '~'
     )
 
+    stop_words = set(stopwords.words("english"))
     sid = SentimentIntensityAnalyzer()
 
     def _to_datetime(self, date_str: str) -> datetime:
@@ -136,6 +140,20 @@ class PreProcessing:
         sentiment = max(scores, key=scores.get)
         return sentiment
 
+    def remove_stop_words(self, text: str) -> str:
+        words = word_tokenize(text, "english")
+
+        filtered_words = [
+            word.lower()
+            for word in words
+            if word.lower() not in self.stop_words
+            ]
+
+        return ' '.join(filtered_words)
+
+    def split_len(self, text: str) -> int:
+        return len(text.split(" "))
+
     def process_data(
             self,
             real_csv: str,
@@ -168,9 +186,13 @@ class PreProcessing:
         df["clear_text"] = df["all_text"].apply(self.clear_text)
         del df["all_text"]
 
-        df = self._sampling_data(df)
+        df["clear_text"] = df["clear_text"].apply(self.remove_stop_words)
 
         df["sentiment"] = df["clear_text"].apply(self.check_sentiment)
+
+        df["words_counter"] = df["clear_text"].apply(self.split_len)
+
+        df = self._sampling_data(df)
 
         if result_csv is not None:
             df.to_csv(result_csv)
