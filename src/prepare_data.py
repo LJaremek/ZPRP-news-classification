@@ -1,7 +1,11 @@
 from datetime import datetime
 import re
 
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import pandas as pd
+import nltk
+
+nltk.download('vader_lexicon')
 
 
 class PreProcessing:
@@ -19,43 +23,7 @@ class PreProcessing:
         '{', '|', '}', '~'
     )
 
-    def lower_text(self, text: str) -> str:
-        return text.lower()
-
-    def remove_html(self, text: str):
-        return re.sub("()", "", text, flags=re.DOTALL)
-
-    def remove_url(self, text: str) -> str:
-        return re.sub(r'https?:\/\/.\S+', "", text)
-
-    def remove_brackets(self, text: str) -> str:
-        text = re.sub("\\[]", "", text)
-        text = re.sub("\\(\\)", "", text)
-        text = re.sub("\\{}", "", text)
-        text = re.sub("\\]", "", text)
-        text = re.sub("\\[", "", text)
-        return text
-
-    def remove_bad_symbols(self, text: str) -> str:
-        for bad_symbol in self.BAD_SYMBOLS:
-            text = text.replace(bad_symbol, "")
-        return text
-
-    def clear_text(self, text: str) -> str:
-        text = self.lower_text(text)
-        text = self.remove_html(text)
-        text = self.remove_url(text)
-        text = self.remove_brackets(text)
-        text = self.remove_bad_symbols(text)
-
-        text = text.replace("\n", " ")
-
-        old_text = ""
-        while old_text != text:
-            old_text = text
-            text = text.replace("  ", " ")
-
-        return text
+    sid = SentimentIntensityAnalyzer()
 
     def _to_datetime(self, date_str: str) -> datetime:
         """
@@ -111,6 +79,63 @@ class PreProcessing:
 
         return df
 
+    def _sampling_data(self, df: pd.DataFrame) -> pd.DataFrame:
+        count_real = df[df["label"] == "real"].shape[0]
+        count_fake = df[df["label"] == "fake"].shape[0]
+        samples_count = count_real - count_fake
+
+        fake_samples_sampled = df[df["label"] == "fake"].sample(
+            n=samples_count,
+            replace=True
+            )
+
+        df = pd.concat([df, fake_samples_sampled])
+
+        return df
+
+    def lower_text(self, text: str) -> str:
+        return text.lower()
+
+    def remove_html(self, text: str):
+        return re.sub("()", "", text, flags=re.DOTALL)
+
+    def remove_url(self, text: str) -> str:
+        return re.sub(r'https?:\/\/.\S+', "", text)
+
+    def remove_brackets(self, text: str) -> str:
+        text = re.sub("\\[]", "", text)
+        text = re.sub("\\(\\)", "", text)
+        text = re.sub("\\{}", "", text)
+        text = re.sub("\\]", "", text)
+        text = re.sub("\\[", "", text)
+        return text
+
+    def remove_bad_symbols(self, text: str) -> str:
+        for bad_symbol in self.BAD_SYMBOLS:
+            text = text.replace(bad_symbol, "")
+        return text
+
+    def clear_text(self, text: str) -> str:
+        text = self.lower_text(text)
+        text = self.remove_html(text)
+        text = self.remove_url(text)
+        text = self.remove_brackets(text)
+        text = self.remove_bad_symbols(text)
+
+        text = text.replace("\n", " ")
+
+        old_text = ""
+        while old_text != text:
+            old_text = text
+            text = text.replace("  ", " ")
+
+        return text
+
+    def check_sentiment(self, text: str) -> str:
+        scores = self.sid.polarity_scores(text)
+        sentiment = max(scores, key=scores.get)
+        return sentiment
+
     def process_data(
             self,
             real_csv: str,
@@ -141,6 +166,11 @@ class PreProcessing:
         df.reset_index(drop=True, inplace=True)
 
         df["clear_text"] = df["all_text"].apply(self.clear_text)
+        del df["all_text"]
+
+        df = self._sampling_data(df)
+
+        df["sentiment"] = df["clear_text"].apply(self.check_sentiment)
 
         if result_csv is not None:
             df.to_csv(result_csv)
@@ -149,9 +179,12 @@ class PreProcessing:
 
 
 if __name__ == "__main__":
+    # Example using
     pre_processing = PreProcessing()
-    pre_processing.process_data(
-        "data/raw/True.csv",
-        "data/raw/Fake.csv",
-        "data/processed/Data.csv"
+    df = pre_processing.process_data(
+        "../data/raw/True.csv",
+        "../data/raw/Fake.csv",
+        "../data/processed/Data.csv"
         )
+
+    print(df.shape)
