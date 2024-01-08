@@ -57,3 +57,13 @@ def pad_tokens(text_int, seq_len):
         ready_articles[n, :] = np.array(new)
 
     return ready_articles
+
+
+def prepare_data(token_column, seq_len):
+    """
+    returns array of ints of every article from dataframe
+    """
+    corpus = create_corpus(token_column)
+    text_int = corpus_to_int(corpus, token_column)
+    data = pad_tokens(text_int, seq_len)
+    return data
