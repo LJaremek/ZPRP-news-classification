@@ -194,6 +194,8 @@ class PreProcessing:
 
         df = self._sampling_data(df)
 
+        df["label"] = df["label"].replace({"fake": 0, "real": 1})
+
         if result_csv is not None:
             df.to_csv(result_csv)
 
@@ -206,7 +208,8 @@ if __name__ == "__main__":
     df = pre_processing.process_data(
         "../data/raw/True.csv",
         "../data/raw/Fake.csv",
-        "../data/processed/Data.csv"
+        "../data/processed/Data2.csv"
         )
 
+    print(df.info())
     print(df.shape)
