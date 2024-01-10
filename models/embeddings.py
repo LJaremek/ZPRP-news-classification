@@ -1,4 +1,4 @@
-from sklearn.preprocessing import train_test_split
+from sklearn.model_selection import train_test_split
 import pandas as pd
 import numpy as np
 from gensim.models import Word2Vec
@@ -35,7 +35,8 @@ def create_word2vec_model(text_column: pd.Series, label_column: pd.Series):
     Creates word2vec model
     """
     X_train = get_X_train_text(text_column, label_column)
-    Word2vec_train_data = list(map(lambda x: x.split(), X_train))
+    X_train_new = [' '.join(article) for article in X_train]
+    Word2vec_train_data = list(map(lambda x: x.split(), X_train_new))
     word2vec_model = Word2Vec(Word2vec_train_data, vector_size=EMBEDDING_DIM)
 
     return word2vec_model
