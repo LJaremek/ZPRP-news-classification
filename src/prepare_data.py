@@ -158,7 +158,7 @@ class PreProcessing:
             self,
             real_csv: str,
             fake_csv: str,
-            result_csv: str | None = None
+            result_csv: str = None
             ) -> pd.DataFrame:
         """
         Process data and prepare them for the model:
