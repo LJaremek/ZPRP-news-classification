@@ -95,6 +95,6 @@ target/
 .mypy_cache/
 
 # logs from LSTM
-./models/pickles
-./models/log
-./models/checkpoints
+/models/pickles
+/models/log
+/models/checkpoints
