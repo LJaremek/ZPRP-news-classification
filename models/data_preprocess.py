@@ -2,29 +2,11 @@ import pandas as pd
 import numpy as np
 from nltk.tokenize import word_tokenize
 from collections import Counter
-
+from config import PATH_TO_DATA, SEQ_LEN
+import pickle as pkl
+from embeddings import *
 
 # Changes in DataFrame
-
-
-def tokenize(data: pd.DataFrame, text_column: str) -> None:
-    """
-    adds extra columns with tokens
-    """
-    data["tokens"] = data.apply(
-        lambda row: word_tokenize(row[text_column].lower()), axis=1
-    )
-
-
-def label_change(data: pd.DataFrame, label_column: str) -> pd.DataFrame:
-    """
-    changes label column from str representation to int
-    """
-    data = data.replace({label_column: {"real": 1, "fake": 0}})
-    return data
-
-
-# Tokenization
 
 
 def create_corpus(token_column: pd.Series) -> Counter:
@@ -77,3 +59,32 @@ def prepare_data(token_column: pd.Series, seq_len: int) -> np.array:
     text_int = corpus_to_int(corpus, token_column)
     data = pad_tokens(text_int, seq_len)
     return data
+
+
+if __name__ == "__main__":
+    print('Data preparing....')
+    data = pd.read_csv(PATH_TO_DATA)
+
+    data["tokens"] = data.apply(lambda row: word_tokenize(row["clear_text"]), axis=1)
+    
+    corpus = create_corpus(data["tokens"])
+    tokenized_articles = prepare_data(data["tokens"], SEQ_LEN)
+    vocab_size = len(corpus) + 1
+
+    with open('./pickles/corpus1.pkl', 'wb') as fp:
+        pkl.dump(corpus, fp)
+
+    with open('./pickles/tokenized_articles1.pkl', 'wb') as fp:
+        pkl.dump(tokenized_articles, fp)
+
+    print("Saved tokenized articles")
+
+    print("Creating embeddings....")
+
+    word2vec_model = create_word2vec_model(data["tokens"], data["label"])
+    embedding_matrix = create_embedding_matrix(word2vec_model, vocab_size, corpus)
+
+    with open('./pickles/embedding_matrix1.pkl', 'wb') as fp:
+        pkl.dump(embedding_matrix, fp)
+
+    print("Saved embedding matrix")
