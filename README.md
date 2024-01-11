@@ -6,49 +6,52 @@ ZPRP project
 Project Organization
 ------------
 
-    ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
-    ├── README.md          <- The top-level README for developers using this project.
     ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
     │   ├── processed      <- The final, canonical data sets for modeling.
+    │   │   └── Data.csv   <- Ready prepared data
     │   └── raw            <- The original, immutable data dump.
-    │
-    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
+    │       ├── Fake.csv   <- Fake news dataset
+    │       └── True.csv   <- Real news dataset
     │
     ├── models             <- Trained and serialized models, model predictions, or model summaries
     │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
+    ├── notebooks          <- Jupyter notebooks.
+    │   └── prepare_data.ipynb
     │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
     ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
     │   │
     │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
+    │   │   ├── prepare_data.py
+    │   │   └── test_prepare_data.py
     │   │
     │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
+    │   │   ├── build_features.py
+    │   │   └── embeddings.py
     │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
+    │   ├── models         <- Scripts to train models and predictions
+    │   │   ├── checkpoint
+    │   │   ├── logs
+    │   │   ├── pickles
+    |   |   |
+    │   │   ├── evaluation.py
+    │   │   ├── lstm.py
     │   │   ├── predict.py
     │   │   └── train.py
     │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
+    │   ├── server         <- Web server files
+    │   |   ├── static     <- Folder for css files
+    │   |   ├── templates  <- Folder for html files
+    |   |   |
+    │   │   ├── endpoints.py
+    │   │   ├── scraper.py
+    │   │   └── test_scraper.py
+    |   |
+    |   └── config.py      <- model configs
     │
+    ├── justfile
+    ├── README.md          <- The top-level README for developers using this project.
+    ├── requirements.txt   <- The requirements file. Generated with `pip freeze > requirements.txt`
+    ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
     └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
 
 
@@ -109,7 +112,7 @@ Download:
 https://onlineacademiccommunity.uvic.ca/isot/wp-content/uploads/sites/7295/2023/03/News-_dataset.zip
 
 #### Train LSTM
-Firstly it is necessary to set adequate data path and optionally change hiperparameters in `src/config`, then create directories `models/checkpoints`, `models/pickles` and `models/log` and then run 
+Firstly it is necessary to set adequate data path and optionally change hiperparameters in `src/config.py`, then run 
 ```shell
 python3 /src/features/build_features.py
 ```
@@ -133,9 +136,3 @@ To predict set TXT value that you want to make prediction, set path to model and
 ```shell
 python3 /src/model/predict.py
 ```
-
-#### Project structure
-Project folder:
-* data:
-    * Fake.csv
-    * True.csv
