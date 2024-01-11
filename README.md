@@ -32,21 +32,21 @@ Project Organization
     │   │   ├── checkpoint
     │   │   ├── logs
     │   │   ├── pickles
-    |   |   |
+    │   │   │
     │   │   ├── evaluation.py
     │   │   ├── lstm.py
     │   │   ├── predict.py
     │   │   └── train.py
     │   │
     │   ├── server         <- Web server files
-    │   |   ├── static     <- Folder for css files
-    │   |   ├── templates  <- Folder for html files
-    |   |   |
+    │   │   ├── static     <- Folder for css files
+    │   │   ├── templates  <- Folder for html files
+    │   │   │
     │   │   ├── endpoints.py
     │   │   ├── scraper.py
     │   │   └── test_scraper.py
-    |   |
-    |   └── config.py      <- model configs
+    │   │
+    │   └── config.py      <- model configs
     │
     ├── justfile
     ├── README.md          <- The top-level README for developers using this project.
