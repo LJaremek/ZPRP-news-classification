@@ -1,5 +1,7 @@
 # for preprocess
-PATH_TO_DATA = '/home/wpartycja/7sem/zrpr/zprp-projekt-z4/data/preprocessed/fake_news.csv'
+PATH_TO_DATA = (
+    "/home/wpartycja/7sem/zrpr/zprp-projekt-z4/data/preprocessed/fake_news.csv"
+)
 SEQ_LEN = 200
 TEST_SIZE = 0.2
 VAL_SIZE = 0.2
