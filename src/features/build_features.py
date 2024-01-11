@@ -6,7 +6,7 @@ import pickle as pkl
 
 import sys
 
-sys.path.append("/home/wpartycja/7sem/zrpr/zprp-projekt-z4/src")
+sys.path.append("path/to/parent/directory")
 
 from config import PATH_TO_DATA, SEQ_LEN
 from embeddings import create_embedding_matrix, create_word2vec_model
