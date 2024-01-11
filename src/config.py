@@ -1,8 +1,8 @@
 # for preprocess
 PATH_TO_DATA = (
-    "/home/wpartycja/7sem/zrpr/zprp-projekt-z4/data/preprocessed/fake_news.csv"
+    "path/to/data"
 )
-SEQ_LEN = 200
+SEQ_LEN = 500
 TEST_SIZE = 0.2
 VAL_SIZE = 0.2
 RANDOM_STATE = 42
@@ -11,8 +11,8 @@ RANDOM_STATE = 42
 NUM_CLASSES = 2
 
 BATCH_SIZE = 32
-EMBEDDING_DIM = 50
-HIDDEN_DIM = 200
+EMBEDDING_DIM = 500
+HIDDEN_DIM = 500
 
 LSTM_LAYERS = 1
 IS_BIDIRECTIONAL = False
