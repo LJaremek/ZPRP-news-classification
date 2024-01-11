@@ -10,7 +10,7 @@ from typing import List, Tuple
 
 import sys
 
-sys.path.append("/home/wpartycja/7sem/zrpr/zprp-projekt-z4/src")
+sys.path.append("path/to/parent/directory")
 
 from config import (
     PATH_TO_DATA,
@@ -26,8 +26,8 @@ from config import (
 )
 
 
-PATH_TO_MODEL = "../../models/checkpoints/[01-11]-[13-33]-model.pt"
-PATH_TO_DATA = "../../data/preprocessed/fake_news.csv"
+PATH_TO_MODEL = "../../models/checkpoints/your_ckpt.pt"
+PATH_TO_DATA = "path_to_data"
 
 
 def create_test_loader(path: str) -> DataLoader:
