@@ -2,7 +2,9 @@ from lstm import LSTM_Classifier
 import numpy as np
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import pickle as pkl
+from typing import Tuple
 
 import sys
 
@@ -48,7 +50,7 @@ def text_preprocess(txt, corpus, seq_len):
     return ready
 
 
-def predict(txt):
+def predict(txt: str) -> Tuple[str, float]:
     """
     predict on one given article
     """
@@ -90,7 +92,12 @@ def predict(txt):
     output, val_h = model(input, test_h)
     y_pred_test = int(torch.argmax(output, dim=1))
 
-    return "fake" if y_pred_test == 0 else "true"
+    prob = F.softmax(output, dim=-1)
+    confidence = prob[0][y_pred_test]*100
+
+    result = "fake" if y_pred_test == 0 else "true"
+
+    return result, float(confidence.cpu().detach().numpy())
 
 
 if __name__ == "__main__":
