@@ -43,8 +43,8 @@ Project Organization
     │   │
     │   ├── models         <- Scripts to train models and then use trained models to make
     │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
+    │   │   ├── predict.py
+    │   │   └── train.py
     │   │
     │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
     │       └── visualize.py
@@ -99,7 +99,7 @@ python endpoints.py
 ```
 
 
-### Dataset
+#### Dataset
 The **ISOT Fake News dataset** is a compilation of several thousands fake news and truthful articles, obtained from different legitimate news sites and sites flagged as unreliable by Politifact.com.
 
 Description:
@@ -108,7 +108,33 @@ https://onlineacademiccommunity.uvic.ca/isot/wp-content/uploads/sites/7295/2023/
 Download:
 https://onlineacademiccommunity.uvic.ca/isot/wp-content/uploads/sites/7295/2023/03/News-_dataset.zip
 
-### Project structure
+#### Train LSTM
+Firstly it is necessary to set adequate data path and optionally change hiperparameters in ```src/config``` and then run 
+```shell
+python3 /src/features/build_features.py
+```
+which should generate pickles in ```models/pickles``` of embeddings, tokenized articles and corpus. Later you can start traning 
+by running
+```shell
+python3 /src/model/train.py
+```
+
+All the logs and plots are saved in ```models/log```, and checkpoints are saved in ```models/checkpoints```
+
+### Evaluation LSTM
+To evaluate LSTM you should firstly set paths in ```src/models/evaluate.py```. Make sure that values in config match with embeddings
+that pretrained model was trained on.
+```shell
+python3 /src/model/evaluate.py
+```
+
+### Predict LSTM
+To predict set TXT value that you want to make prediction, set path to model and then run
+```shell
+python3 /src/model/predict.py
+```
+
+#### Project structure
 Project folder:
 * data:
     * Fake.csv
