@@ -1,6 +1,6 @@
 import unittest
 
-import scraper
+from src.server import scraper
 
 
 class BasicTestCase(unittest.TestCase):
