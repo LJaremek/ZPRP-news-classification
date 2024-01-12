@@ -14,16 +14,19 @@ from starlette.templating import Jinja2Templates
 
 import scraper
 
+
+# from src.models.predict import predict
+def predict(article_text:str, use_cuda:bool):
+    # FIXME remove this when real predict works
+    return "true", random.random()
+
 STATIC_PAGE_TIMEOUT = 5
 DYNAMIC_PAGE_WAIT = 5
+USE_CUDA = False
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
-
-
-def mock_rate_article(article_text: str) -> float:
-    return random.random()
 
 
 async def load_static_page(url: str) -> str:
@@ -51,7 +54,7 @@ async def load_dynamic_page(url: str) -> str:
     :return: HTML after rendering
     """
     options = webdriver.FirefoxOptions()
-    options.headless = False
+    options.headless = True
     driver = webdriver.Firefox(options=options)
     driver.get(url)
     time.sleep(DYNAMIC_PAGE_WAIT)
@@ -82,7 +85,8 @@ async def load_article(url: str) -> str:
 
 class ArticleRating(BaseModel):
     article: str
-    rating: float
+    rating: str
+    confidence: float
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -92,12 +96,14 @@ async def index(request: Request):
 
 @app.post("/rate_article", response_class=HTMLResponse)
 async def rate_article_form(request: Request, article_text: Annotated[str, Form()]):
+    rating, confidence = predict(article_text, use_cuda=USE_CUDA)
     return templates.TemplateResponse(
         "result.html",
         {
             "request": request,
             "text": article_text,
-            "rating_percent": int(mock_rate_article(article_text) * 100),
+            "rating": rating,
+            "confidence": int(confidence * 100),
         },
     )
 
@@ -105,26 +111,19 @@ async def rate_article_form(request: Request, article_text: Annotated[str, Form(
 @app.post("/rate_url", response_class=HTMLResponse)
 async def rate_url_form(request: Request, article_url: Annotated[str, Form()]):
     article_text = await load_article(article_url)
-    return templates.TemplateResponse(
-        "result.html",
-        {
-            "request": request,
-            "text": article_text,
-            "rating_percent": int(mock_rate_article(article_text) * 100),
-        },
-    )
+    return rate_article_form(request, article_text)
 
 
 @app.get("/rate_article")
-async def rate_article(article: str):
-    return ArticleRating(article=article, rating=mock_rate_article(article))
+async def rate_article_text(article_text: str):
+    rating, confidence = predict(article_text, use_cuda=USE_CUDA)
+    return ArticleRating(article=article_text, rating=rating, confidence=confidence)
 
 
 @app.get("/rate_url")
 async def rate_url(url: str):
-    article = await load_article(url)
-    return ArticleRating(article=article, rating=mock_rate_article(article))
-
+    article_text = await load_article(url)
+    return rate_article_text(article_text)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8090, ssl_keyfile=None, ssl_certfile=None)
