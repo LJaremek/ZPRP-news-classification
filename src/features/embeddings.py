@@ -4,7 +4,7 @@ import numpy as np
 from gensim.models import Word2Vec
 import sys
 
-sys.path.append("/home/wpartycja/7sem/zrpr/zprp-projekt-z4/src")
+sys.path.append("path/to/parent/directory")
 
 from config import TEST_SIZE, RANDOM_STATE, VAL_SIZE, EMBEDDING_DIM
 
