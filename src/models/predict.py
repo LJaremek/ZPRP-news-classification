@@ -1,16 +1,16 @@
-from lstm import LSTM_Classifier
+from src.models.lstm import LSTM_Classifier
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import pickle as pkl
 from typing import Tuple
+from src.config import *
 
 import sys
 
 sys.path.append("path/to/parent/directory")
 
-from config import * 
 
 
 PATH_TO_MODEL = 'path/to/model'
@@ -50,11 +50,11 @@ def text_preprocess(txt, corpus, seq_len):
     return ready
 
 
-def predict(txt: str) -> Tuple[str, float]:
+def predict(txt: str, use_cuda: bool = True) -> Tuple[str, float]:
     """
     predict on one given article
     """
-    device = torch.device("cuda")
+    device = torch.device("cuda" if use_cuda else "cpu")
 
     print("Loading model...")
 
@@ -81,7 +81,7 @@ def predict(txt: str) -> Tuple[str, float]:
     # Initialize the embedding layer with the previously defined embedding matrix
     model.embedding.weight.data.copy_(torch.from_numpy(embedding_matrix))
 
-    model.load_state_dict(torch.load(PATH_TO_MODEL))
+    model.load_state_dict(torch.load(PATH_TO_MODEL, map_location=None if use_cuda else "cpu"))
 
     print("Model loaded successfully!")
     model.eval()

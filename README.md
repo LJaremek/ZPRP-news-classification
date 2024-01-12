@@ -80,6 +80,8 @@ conda activate zprp
 conda install --file requirements.txt
 ```
 
+To enable dynamic page rendering with Selenium, you'll also need to install geckodriver on your system: https://github.com/mozilla/geckodriver
+
 #### How to create `requirements.txt`
 ```shell
 conda list -e > requirements.txt
@@ -88,7 +90,6 @@ or
 ```shell
 pip list --format=freeze > requirements.txt
 ```
-
 
 ### Run project
 #### Run tests
