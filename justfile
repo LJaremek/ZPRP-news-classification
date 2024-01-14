@@ -1,7 +1,7 @@
 #!/usr/bin/env just --justfile
 
 run-server:
-    python src/server/endpoints.py
+    python -m src.server.endpoints
 
 create-env:
     conda create --name zprp python=3.10.9
@@ -22,4 +22,4 @@ run-test:
     python -m unittest
 
 train:
-    python3 src/model/train.py
+    python3 -m src.models.train
