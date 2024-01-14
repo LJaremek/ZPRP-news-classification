@@ -13,10 +13,7 @@ deactivate-env:
     conda deactivate
 
 install-deps:
-    conda install --file requirements.txt
-
-dump-deps:
-    pip list --format=freeze > requirements.txt
+    pip install -r requirements.txt
 
 run-test:
     python -m unittest
