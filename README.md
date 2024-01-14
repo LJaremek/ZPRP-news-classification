@@ -99,7 +99,7 @@ python -m unittest
 
 #### Run server with endpoints
 ```shell
-python src/server/endpoints.py
+python -m src.server.endpoints
 ```
 
 
