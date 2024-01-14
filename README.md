@@ -137,3 +137,7 @@ To predict set TXT value that you want to make prediction, set path to model and
 ```shell
 python3 predict.py
 ```
+
+### Pretrained
+You can download pretrained models from this link: https://drive.google.com/drive/folders/1IJJheMcSSy1o4QG0QR7EEcSBtjTkzBDB?usp=drive_link
+
