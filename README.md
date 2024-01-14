@@ -57,7 +57,21 @@ Project Organization
 
 --------
 
-### Build start environment
+### Setup/run with `just`
+```
+$ just <recipe>
+Available recipes:
+    create-env
+    activate-env
+    deactivate-env
+    install-deps
+    dump-deps
+    run-server
+    run-test
+    train
+```
+
+### Setup start environment manually
 #### Short version without explanations
 ```shell
 conda create --name zprp python=3.10.9
@@ -77,21 +91,12 @@ conda activate zprp
 
 #### Install requirements
 ```shell
-conda install --file requirements.txt
+pip install -r requirements.txt
 ```
 
 To enable dynamic page rendering with Selenium, you'll also need to install geckodriver on your system: https://github.com/mozilla/geckodriver
 
-#### How to create `requirements.txt`
-```shell
-conda list -e > requirements.txt
-```
-or
-```shell
-pip list --format=freeze > requirements.txt
-```
-
-### Run project
+### Run project manually
 #### Run tests
 ```shell
 python -m unittest
@@ -99,7 +104,7 @@ python -m unittest
 
 #### Run server with endpoints
 ```shell
-python src/server/endpoints.py
+python -m src.server.endpoints
 ```
 
 

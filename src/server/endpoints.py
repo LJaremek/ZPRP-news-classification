@@ -1,4 +1,4 @@
-import random
+import os
 import time
 from typing import Annotated
 
@@ -12,17 +12,17 @@ from starlette.responses import HTMLResponse
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
-import scraper
-
 from src.models.predict import predict
+from src.server import scraper
 
 STATIC_PAGE_TIMEOUT = 5
 DYNAMIC_PAGE_WAIT = 5
 USE_CUDA = False
 
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
+parent_dir = os.path.dirname(os.path.realpath(__file__))
+app.mount("/static", StaticFiles(directory=f"{parent_dir}/static"), name="static")
+templates = Jinja2Templates(directory=f"{parent_dir}/templates")
 
 
 async def load_static_page(url: str) -> str:
