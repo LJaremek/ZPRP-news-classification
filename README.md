@@ -141,3 +141,6 @@ python3 predict.py
 ### Pretrained
 You can download pretrained models from this link: https://drive.google.com/drive/folders/1IJJheMcSSy1o4QG0QR7EEcSBtjTkzBDB?usp=drive_link
 
+
+#### Disclaimer
+During traning larger lstm model computer died in the middle of traning process, but best model was saved - that's why the plot conatins breakdown.
