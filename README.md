@@ -25,18 +25,18 @@ Project Organization
     │   │   └── test_prepare_data.py
     │   │
     │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   ├── build_features.py
-    │   │   └── embeddings.py
+    │   │   ├── build_features.py  
+    │   │   └── embeddings.py  
     │   │
     │   ├── models         <- Scripts to train models and predictions
-    │   │   ├── checkpoint
-    │   │   ├── logs
-    │   │   ├── pickles
+    │   │   ├── checkpoint <- directory contaning model checkpoints
+    │   │   ├── logs       <- directory where logs from model training are saved
+    │   │   ├── pickles    <- directory with pickles of embeddings
     │   │   │
     │   │   ├── evaluation.py
-    │   │   ├── lstm.py
-    │   │   ├── predict.py
-    │   │   └── train.py
+    │   │   ├── lstm.py    
+    │   │   ├── predict.py 
+    │   │   └── train.py   
     │   │
     │   ├── server         <- Web server files
     │   │   ├── static     <- Folder for css files
@@ -115,12 +115,12 @@ https://onlineacademiccommunity.uvic.ca/isot/wp-content/uploads/sites/7295/2023/
 #### Train LSTM
 Firstly it is necessary to set adequate data path and optionally change hyperparameters in `src/config.py`, then run 
 ```shell
-python3 src/features/build_features.py
+python3 build_features.py
 ```
 which should generate pickles in `models/pickles` of embeddings, tokenized articles and corpus. Later you can start training 
 by running
 ```shell
-python3 src/model/train.py
+python3 train.py
 ```
 
 All the logs and plots are saved in `models/log`, and checkpoints are saved in `models/checkpoints`
@@ -129,11 +129,11 @@ All the logs and plots are saved in `models/log`, and checkpoints are saved in `
 To evaluate LSTM you should firstly set paths in `src/models/evaluate.py`. Make sure that values in config match with embeddings
 that pretrained model was trained on.
 ```shell
-python3 src/model/evaluate.py
+python3 evaluate.py
 ```
 
 ### Predict LSTM
 To predict set TXT value that you want to make prediction, set path to model and then run
 ```shell
-python3 src/model/predict.py
+python3 predict.py
 ```
