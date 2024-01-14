@@ -57,7 +57,21 @@ Project Organization
 
 --------
 
-### Build start environment
+### Setup/run with `just`
+```
+$ just <recipe>
+Available recipes:
+    create-env
+    activate-env
+    deactivate-env
+    install-deps
+    dump-deps
+    run-server
+    run-test
+    train
+```
+
+### Setup start environment manually
 #### Short version without explanations
 ```shell
 conda create --name zprp python=3.10.9
@@ -91,7 +105,7 @@ or
 pip list --format=freeze > requirements.txt
 ```
 
-### Run project
+### Run project manually
 #### Run tests
 ```shell
 python -m unittest
