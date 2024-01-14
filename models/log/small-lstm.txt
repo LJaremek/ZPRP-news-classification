@@ -1,0 +1,37 @@
+[INFO 2024-01-10 16:00:42,159 train.py] Initializing....
+[INFO 2024-01-10 16:00:42,958 train.py] Data loading....
+[INFO 2024-01-10 16:00:43,048 train.py] Data loaded sucessfully. Vocabulary size: 226484
+[INFO 2024-01-10 16:00:43,049 train.py] Creating loaders...
+[INFO 2024-01-10 16:00:43,125 train.py] Building model......
+[INFO 2024-01-10 16:00:44,525 train.py] Begin training......
+[INFO 2024-01-10 16:01:28,005 train.py] Epoch 2:Validation accuracy increased (0.000000 --> 99.763033).  Saving model ...
+[INFO 2024-01-10 16:01:28,594 train.py] 	Train_loss : 0.0747 Val_loss : 0.0123
+[INFO 2024-01-10 16:01:28,594 train.py] 	Train_acc : 96.465% Val_acc : 99.763%
+[INFO 2024-01-10 16:02:12,436 train.py] Epoch 3:Validation accuracy did not increase
+[INFO 2024-01-10 16:02:12,885 train.py] 	Train_loss : 0.0142 Val_loss : 0.0189
+[INFO 2024-01-10 16:02:12,885 train.py] 	Train_acc : 99.775% Val_acc : 99.437%
+[INFO 2024-01-10 16:02:57,156 train.py] Epoch 4:Validation accuracy increased (99.763033 --> 99.792654).  Saving model ...
+[INFO 2024-01-10 16:02:57,707 train.py] 	Train_loss : 0.0124 Val_loss : 0.0085
+[INFO 2024-01-10 16:02:57,707 train.py] 	Train_acc : 99.779% Val_acc : 99.793%
+[INFO 2024-01-10 16:03:42,424 train.py] Epoch 5:Validation accuracy increased (99.792654 --> 99.822275).  Saving model ...
+[INFO 2024-01-10 16:03:42,900 train.py] 	Train_loss : 0.0104 Val_loss : 0.0081
+[INFO 2024-01-10 16:03:42,900 train.py] 	Train_acc : 99.801% Val_acc : 99.822%
+[INFO 2024-01-10 16:04:26,584 train.py] Epoch 6:Validation accuracy increased (99.822275 --> 99.866706).  Saving model ...
+[INFO 2024-01-10 16:04:27,306 train.py] 	Train_loss : 0.0106 Val_loss : 0.0062
+[INFO 2024-01-10 16:04:27,307 train.py] 	Train_acc : 99.760% Val_acc : 99.867%
+[INFO 2024-01-10 16:05:10,524 train.py] Epoch 7:Validation accuracy did not increase
+[INFO 2024-01-10 16:05:10,962 train.py] 	Train_loss : 0.0055 Val_loss : 0.0155
+[INFO 2024-01-10 16:05:10,963 train.py] 	Train_acc : 99.867% Val_acc : 99.659%
+[INFO 2024-01-10 16:05:53,505 train.py] Epoch 8:Validation accuracy did not increase
+[INFO 2024-01-10 16:05:53,880 train.py] 	Train_loss : 0.0040 Val_loss : 0.0076
+[INFO 2024-01-10 16:05:53,881 train.py] 	Train_acc : 99.908% Val_acc : 99.837%
+[INFO 2024-01-10 16:06:36,710 train.py] Epoch 9:Validation accuracy did not increase
+[INFO 2024-01-10 16:06:37,165 train.py] 	Train_loss : 0.0027 Val_loss : 0.0104
+[INFO 2024-01-10 16:06:37,166 train.py] 	Train_acc : 99.945% Val_acc : 99.778%
+[INFO 2024-01-10 16:07:20,380 train.py] Epoch 10:Validation accuracy increased (99.866706 --> 99.866706).  Saving model ...
+[INFO 2024-01-10 16:07:20,971 train.py] 	Train_loss : 0.0020 Val_loss : 0.0079
+[INFO 2024-01-10 16:07:20,972 train.py] 	Train_acc : 99.952% Val_acc : 99.867%
+[INFO 2024-01-10 16:08:03,857 train.py] Epoch 11:Validation accuracy increased (99.866706 --> 99.881517).  Saving model ...
+[INFO 2024-01-10 16:08:04,400 train.py] 	Train_loss : 0.0015 Val_loss : 0.0083
+[INFO 2024-01-10 16:08:04,400 train.py] 	Train_acc : 99.967% Val_acc : 99.882%
+[INFO 2024-01-10 16:08:04,401 train.py] EVALUATION
